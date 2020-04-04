@@ -1,1 +1,22 @@
-
+{
+  "repos": {
+    "fedora": {
+      "url": "oci+https://registry.fedoraproject.org"
+    },
+    "firefox": {
+      "url": "https://firefox-flatpak.mojefedora.cz/org.mozilla.FirefoxRepo.flatpakrepo"
+    },
+    "flathub": {
+      "url": "https://flathub.org/repo/flathub.flatpakrepo"
+    },
+    "flathub-beta": {
+      "url": "https://flathub.org/beta-repo/flathub-beta.flatpakrepo"
+    },
+    "gnome-nightly": {
+      "url": "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
+    },
+    "kdeapps": {
+      "url": "https://distribute.kde.org/kdeapps.flatpakrepo"
+    }
+  }
+}

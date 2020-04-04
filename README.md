@@ -1,11 +1,13 @@
 # flatpak-sync
-Automate Installation and Permissions for Flatpak Applications
+Automate Flatpak Application Installation and Permissions
 
 ## Requirements 
 
 * Flatpak 1.4 or greater ```gnome-shell --version```
 * Python 3.5 or greater ```python --version```
 * PIP installed ```pip --version```
+
+[How to Install Flatpak on your distro](https://flatpak.org/setup/)
 
 ## How to Install
 
