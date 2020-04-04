@@ -1,21 +1,16 @@
 # flatpak-sync
 Automate Installation and Permissions for Flatpak Applications
 
-## Requirements
+## Requirements 
 
-Flatpak 1.4 or greater
-Python 3.5 or greater
-PIP installed
-
-```
-flatpak -v
-python -v
-pip -v
-```
+* Flatpak 1.4 or greater ```gnome-shell --version```
+* Python 3.5 or greater ```python --version```
+* PIP installed ```pip --version```
 
 ## How to Install
 
-You need to have Python 3 and pip module manager installed.
+After verifying you have Python 3 and pip module manager installed, use the
+following command to install.
 ```
 pip install --user flatpak-sync
 ```
@@ -56,3 +51,11 @@ Download & Sync
 ```
 flatpak-sync downloadrun
 ```
+
+## Questions
+
+Is there a list of common flatpak repositories?
+Yes, they can be found here
+
+
+
