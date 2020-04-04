@@ -26,17 +26,16 @@ def generate(conf, verbose):
     """ 
     Generate a configuration file from existing/installed flatpak applications 
     """
+    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
     conf = os.environ['HOME'] + '/' + conf
-    fp=flatpak()
+    fp=flatpakcmd()
     if fp.isInstalled() == False:
         sys.exit("Unable to find flatpak! Are you sure flatpak is installed?")
 
-    if verbose:
-        print("Flatpak installed: {}".format(fp.isInstalled()))
-        print(fp.getVersion())
-        print()
-        print("Configuration file: {}".format(conf))
+    logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
+    logging.debug(fp.getVersion())
+    logging.debug("Configuration file: {}".format(conf))
 
     
     raction=repoaction() 
@@ -61,12 +60,12 @@ def generate(conf, verbose):
         wconfig.setAppList(applist)
 
         if wconfig.write():
-            click.echo('Successfully wrote configuration')
+            logging.info('Successfully wrote configuration')
         else:
-            click.echo('Failed to write configuration')
+            logging.error('Failed to write configuration')
 
     else:
-        click.echo('Failed to parse apps')
+        logging.echo('Failed to parse apps')
 
 
     # Sync (install/remove) applications from your configuration
@@ -74,18 +73,17 @@ def generate(conf, verbose):
 @click.option('-v', '--verbose', is_flag=True)
 @click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
 @click.option('--dryrun', default=0, help='configuration file')
-def sync(conf, dryrun, verbose):
+def run(conf, dryrun, verbose):
     """ 
-    Sync (add/remove) flatpak applications 
+    Run (add/remove) flatpak applications 
     """
+    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
     conf = os.environ['HOME'] + '/' + conf
-    if verbose:
-        fp=flatpak()
-        print("Flatpak installed: {}".format(fp.isInstalled()))
-        print(fp.getVersion())
-        print()
-        print("Configuration file: {}".format(conf))
+
+    logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
+    logging.debug(fp.getVersion())
+    logging.debug("Configuration file: {}".format(conf))
 
     config=readconfig(conf)
     if config.read():
@@ -97,14 +95,14 @@ def sync(conf, dryrun, verbose):
         for app in applist.getAll():
             action=appaction()
             if action.isInstalled(app):
-                click.echo('{} already installed'.format(app.getAppId()))
+                logging.info('{} already installed'.format(app.getAppId()))
             else:
                 if action.install(app):
-                    click.echo('{} installation successful'.format(app.getAppId()))
+                    logging.info('{} installation successful'.format(app.getAppId()))
                 else:
-                    click.echo('{} installation failed'.format(app.getAppId()))
+                    logging.error('{} installation failed'.format(app.getAppId()))
     else:
-        click.echo('failed to read configuration')
+        logging.info('failed to read configuration')
 
 
 
@@ -123,14 +121,13 @@ def add(repo, appid, conf, verbose):
     
     APPID is name of flatpak application (eg. com.gnome.meld)
     """
+    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
     conf = os.environ['HOME'] + '/' + conf
-    if verbose:
-        fp=flatpak()
-        print("Flatpak installed: {}".format(fp.isInstalled()))
-        print(fp.getVersion())
-        print()
-        print("Configuration file: {}".format(conf))
+
+    logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
+    logging.debug(fp.getVersion())
+    logging.debug("Configuration file: {}".format(conf))
 
     config=readconfig(conf)
     if config.read():
@@ -148,12 +145,12 @@ def add(repo, appid, conf, verbose):
         wconfig.setAppList(applist)
 
         if wconfig.write():
-            click.echo('successfully wrote configuration')
+            logging.info('successfully wrote configuration')
         else:
-            click.echo('failed to write configuration')
+            logging.error('failed to write configuration')
 
     else:
-        click.echo('failed to read configuration')
+        logging.error('failed to read configuration')
 
     
 
@@ -174,14 +171,13 @@ def remove(repo, appid, conf, verbose):
     
     APPID is name of flatpak application (eg. com.gnome.meld)
     """
+    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
     conf = os.environ['HOME'] + '/' + conf
-    if verbose:
-        fp=flatpak()
-        print("Flatpak installed: {}".format(fp.isInstalled()))
-        print(fp.getVersion())
-        print()
-        print("Configuration file: {}".format(conf))
+
+    logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
+    logging.debug(fp.getVersion())
+    logging.debug("Configuration file: {}".format(conf))
 
     
     config=readconfig(conf)
@@ -202,13 +198,53 @@ def remove(repo, appid, conf, verbose):
         wconfig.setAppList(applist)
 
         if wconfig.write():
-            click.echo('Successfully wrote configuration')
+            logging.info('Successfully wrote configuration')
         else:
-            click.echo('Failed to write configuration')
+            logging.error('Failed to write configuration')
 
     else:
-        click.echo('Failed to read configuration')
+        logging.error('Failed to read configuration')
 
+
+@cli.command()
+@click.option('-v', '--verbose', is_flag=True, help='verbose output')
+@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
+def download(conf, verbose):
+    """ 
+    Download configuration file from remote site
+
+    REPO is the flatpak repository (eg. flathub)
+    
+    APPID is name of flatpak application (eg. com.gnome.meld)
+    """
+    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+
+@cli.command()
+@click.option('-v', '--verbose', is_flag=True, help='verbose output')
+@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
+def upload(conf, verbose):
+    """ 
+    Upload configuration file to remote site 
+
+    REPO is the flatpak repository (eg. flathub)
+    
+    APPID is name of flatpak application (eg. com.gnome.meld)
+    """
+    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+
+
+@cli.command()
+@click.option('-v', '--verbose', is_flag=True, help='verbose output')
+@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
+def downloadrun(conf, verbose):
+    """ 
+    Download and Run configuration file from remote site (Installing Apps and Permissions)
+
+    REPO is the flatpak repository (eg. flathub)
+    
+    APPID is name of flatpak application (eg. com.gnome.meld)
+    """
+    
 
 def main():
     cli()
