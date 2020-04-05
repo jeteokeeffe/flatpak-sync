@@ -9,4 +9,5 @@ class parsemask:
         self.test = ""
 
     def parse(self, output: str):
+        print("not implemented")
 

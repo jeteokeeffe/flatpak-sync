@@ -1,4 +1,4 @@
-import .apprequest as apprequest
+from .appreqeust import apprequest
 
 class compareapp:
 

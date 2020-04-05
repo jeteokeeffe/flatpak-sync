@@ -1,22 +1,20 @@
 
-
-
 class comparerepo:
 
     def setInstalled(self, repo):
-        self.installed = repo
+        self.installedRepo = repo
         return true
 
 
     def setConfig(self, repo):
-        self.config = repo
+        self.configRepo = repo
         return true
 
 
     def compare():
-        if (self.installed)
+        if self.installedRepo:
             state = 3
-        else
+        else:
             state = 1
 
         details = {
