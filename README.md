@@ -57,7 +57,8 @@ flatpak-sync downloadrun
 ## Questions
 
 Is there a list of common flatpak repositories?
-Yes, they can be found here
+Yes, they can be found [here](https://github.com/jeteokeeffe/flatpak-sync/blob/master/data/common-repos.json)
 
-
+Where can I see an example configuration file?
+Here is an [example configuration file](https://github.com/jeteokeeffe/flatpak-sync/blob/master/data/example-flatpak-configuration.yaml)
 

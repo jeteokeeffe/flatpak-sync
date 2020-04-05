@@ -1,7 +1,5 @@
 
 
-
-
 class settings:
     '''
     Global Flatpak settings

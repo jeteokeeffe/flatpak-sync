@@ -1,9 +1,11 @@
 
 class repo:
-
     '''
     flatpak repository
     '''
+
+    UNKNOWN_LOCATION = "unknown repo"
+
     def __init__(self, name = '', location = ''):
         self.name = name
         self.location = location
@@ -22,10 +24,11 @@ class repo:
 
 
     def nameToLocation(name) -> str:
+        #"firefox": "",
         switcher = {
+            "fedora": "oci+https://registry.fedoraproject.org",
             "flathub": "https://flathub.org/repo/flathub.flatpakrepo",
             "flathub-beta": "https://flathub.org/beta-repo/flathub-beta.flatpakrepo",
-            "fedora": "oci+https://registry.fedoraproject.org",
             "gnome-nightly": "https://nightly.gnome.org/gnome-nightly.flatpakrepo",
             "kdeapps": "https://distribute.kde.org/kdeapps.flatpakrepo"
         }
