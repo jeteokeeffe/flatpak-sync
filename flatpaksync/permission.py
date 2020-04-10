@@ -2,14 +2,26 @@
 
 class permission:
 
-    def __init__(self, permission: str = "", val: str = ""):
-        self.permission = permission
-        self.value = val
+    TYPE_USER = "user"
+    TYPE_SYSTEM = "system"
+
+    def __init__(self, line: str = ""):
+        self.setPermission(line.split("=")[0], line.split("=")[1])
         self.type = "user"
 
     def setPermission(self, permission: str, val: str) -> bool:
-        self.permission = permission
+        options = {
+            'filesystems': 'filesystem',
+            'filesystem': 'filesystem',
+            'sockets': 'socket',
+            'persist': 'persist',
+            'env': 'env',
+            'persist': 'persist',
+        }
+
+        self.permission = options.get(permission);
         self.value = val
+
         return True
 
 
@@ -19,6 +31,7 @@ class permission:
     def getValue(self) -> str:
         return self.value
 
-
     def toCmd(self) -> str:
         return "--{}={}".format(self.permission, self.value)
+
+

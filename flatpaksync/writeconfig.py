@@ -1,5 +1,6 @@
-import yaml
+import json
 import os
+import logging
 
 from .applist import applist
 from .app import app
@@ -85,9 +86,11 @@ class writeconfig:
             # Open as writable
         try:
             with open(self.config, 'w') as f:
-                result = yaml.dump(data, f)
+                json.dump(data, f, indent=4)
+                #result = yaml.dump(data, f)
         except IOError as e:
-            print("error")
+            logging.error("Failed to write configuration file")
+            return False
 
         return True
 

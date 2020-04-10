@@ -1,6 +1,7 @@
 import click
 import logging
 import os
+from pathlib import Path
 
 from .readconfig import readconfig
 from .writeconfig import writeconfig
@@ -11,7 +12,7 @@ from .parseapp import parseapp
 from .parserepo import parserepo
 from .settings import settings
 from .flatpakcmd import flatpakcmd
-
+from .permissionaction import permissionaction
 
 
 @click.group()
@@ -21,12 +22,18 @@ def cli():
 
 @cli.command()
 @click.option('-v', '--verbose', is_flag=True, help='verbose output')
-@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
+@click.option('-c', '--conf', default=".config/flatpak-sync/flatpak.json", help='configuration file')
+#@click.option('--dryrun', is_flag=True, help='configuration file')
 def generate(conf, verbose):
     """ 
-    Generate a configuration file from existing/installed flatpak applications 
+    Generate a configuration file from existing,installed flatpak applications 
     """
     logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+
+    if conf == ".config/flatpak-sync/flatpak.json":
+        confFile = os.environ['HOME'] + '/' + conf
+        confPath = os.path.dirname(os.path.realpath(confFile)) 
+        Path(confPath).mkdir(parents=True, exist_ok=True)
 
     conf = os.environ['HOME'] + '/' + conf
     fp=flatpakcmd()
@@ -68,11 +75,11 @@ def generate(conf, verbose):
         logging.echo('Failed to parse apps')
 
 
-    # Sync (install/remove) applications from your configuration
+    # Run (install/remove) applications from your configuration
 @cli.command()
 @click.option('-v', '--verbose', is_flag=True)
-@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
-@click.option('--dryrun', default=0, help='configuration file')
+@click.option('-c', '--conf', default=".config/flatpak-sync/flatpak.json", help='configuration file')
+@click.option('--dryrun', is_flag=True, help='configuration file')
 def run(conf, dryrun, verbose):
     """ 
     Run (add/remove) flatpak applications 
@@ -81,6 +88,7 @@ def run(conf, dryrun, verbose):
 
     conf = os.environ['HOME'] + '/' + conf
 
+    fp=flatpakcmd()
     logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
     logging.debug(fp.getVersion())
     logging.debug("Configuration file: {}".format(conf))
@@ -94,13 +102,29 @@ def run(conf, dryrun, verbose):
             # Install Applications
         for app in applist.getAll():
             action=appaction()
+            permaction=permissionaction()
+
             if action.isInstalled(app):
-                logging.info('{} already installed'.format(app.getAppId()))
+                logging.debug('{} already installed'.format(app.getAppId()))
             else:
-                if action.install(app):
+                if dryrun:
+                    logging.info('{} to be installed'.format(app.getAppId()))
+                elif action.install(app):
                     logging.info('{} installation successful'.format(app.getAppId()))
                 else:
                     logging.error('{} installation failed'.format(app.getAppId()))
+
+            perms = app.getPermissions()
+            if perms.getCount() > 0:
+                logging.debug('{} has overriding permissions'.format(app.getAppId()))
+                for permission in perms.getAll():
+                    if permaction.override(app, permission):
+                        logging.debug(" permission set")
+                    else:
+                        logging.error("{} failed to set permission '{}'".format(app.getAppId(), permission.getPermission()))
+
+            #else
+            #    logging.debug('{} has no overriding permissions'.format(app.getAppId()))
     else:
         logging.info('failed to read configuration')
 
@@ -109,7 +133,7 @@ def run(conf, dryrun, verbose):
 
     # Add an Application to be sync'd
 @cli.command()
-@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
+@click.option('-c', '--conf', default=".config/flatpak-sync/flatpak.json", help='configuration file')
 @click.option('-v', '--verbose', is_flag=True)
 @click.argument('repo')
 @click.argument('appid')
@@ -125,6 +149,7 @@ def add(repo, appid, conf, verbose):
 
     conf = os.environ['HOME'] + '/' + conf
 
+    fp=flatpakcmd()
     logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
     logging.debug(fp.getVersion())
     logging.debug("Configuration file: {}".format(conf))
@@ -175,6 +200,7 @@ def remove(repo, appid, conf, verbose):
 
     conf = os.environ['HOME'] + '/' + conf
 
+    fp=flatpakcmd()
     logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
     logging.debug(fp.getVersion())
     logging.debug("Configuration file: {}".format(conf))
@@ -206,44 +232,44 @@ def remove(repo, appid, conf, verbose):
         logging.error('Failed to read configuration')
 
 
-@cli.command()
-@click.option('-v', '--verbose', is_flag=True, help='verbose output')
-@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
-def download(conf, verbose):
-    """ 
-    Download configuration file from remote site
+#@cli.command()
+#@click.option('-v', '--verbose', is_flag=True, help='verbose output')
+#@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
+#def download(conf, verbose):
+#    """ 
+#    Download configuration file from remote site
+#
+#    REPO is the flatpak repository (eg. flathub)
+#    
+#    APPID is name of flatpak application (eg. com.gnome.meld)
+#    """
+#    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
-    REPO is the flatpak repository (eg. flathub)
-    
-    APPID is name of flatpak application (eg. com.gnome.meld)
-    """
-    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
-
-@cli.command()
-@click.option('-v', '--verbose', is_flag=True, help='verbose output')
-@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
-def upload(conf, verbose):
-    """ 
-    Upload configuration file to remote site 
-
-    REPO is the flatpak repository (eg. flathub)
-    
-    APPID is name of flatpak application (eg. com.gnome.meld)
-    """
-    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+#@cli.command()
+#@click.option('-v', '--verbose', is_flag=True, help='verbose output')
+#@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
+#def upload(conf, verbose):
+#    """ 
+#    Upload configuration file to remote site 
+#
+#    REPO is the flatpak repository (eg. flathub)
+#    
+#    APPID is name of flatpak application (eg. com.gnome.meld)
+#    """
+#    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
 
-@cli.command()
-@click.option('-v', '--verbose', is_flag=True, help='verbose output')
-@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
-def downloadrun(conf, verbose):
-    """ 
-    Download and Run configuration file from remote site (Installing Apps and Permissions)
-
-    REPO is the flatpak repository (eg. flathub)
-    
-    APPID is name of flatpak application (eg. com.gnome.meld)
-    """
+#@cli.command()
+#@click.option('-v', '--verbose', is_flag=True, help='verbose output')
+#@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
+#def downloadrun(conf, verbose):
+#    """ 
+#    Download and Run configuration file from remote site (Installing Apps and Permissions)
+#
+#    REPO is the flatpak repository (eg. flathub)
+#    
+#    APPID is name of flatpak application (eg. com.gnome.meld)
+#    """
     
 
 def main():

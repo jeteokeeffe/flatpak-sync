@@ -1,6 +1,6 @@
 from .permission import permission
 
-class permissionlist:
+class permissionlist():
 
     """
     list of flatpak permissions for a specific app
@@ -8,6 +8,7 @@ class permissionlist:
     def __init__(self):
         self.permlist = []
         self.count = 0
+
 
     def getAll(self):
         return self.permlist 
@@ -21,9 +22,9 @@ class permissionlist:
         return self.count
     
 
-    def add(self, perm: permission) -> bool:
+    def add(self, perm) -> bool:
         self.permlist.append(perm)
-        self.count += 1
+        self.count = self.count + 1
         return True
 
 

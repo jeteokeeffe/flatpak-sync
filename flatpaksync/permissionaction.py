@@ -17,7 +17,8 @@ class permissionaction:
         cmd = "flatpak override --user {} {}".format(myapp.getAppId(), myperm.toCmd())
         result=subprocess.run(cmd, shell=True, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if result.returncode == 0:
-            return result.stdout
+            return True
+
         return False
 
 
