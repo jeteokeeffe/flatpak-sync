@@ -17,7 +17,22 @@ following command to install.
 pip install --user flatpak-sync
 ```
 
-## How to Use
+## Basic Usage
+
+After you've installed your flatpak applications and setup
+1. Install your flatpak applications
+2. Generate a flatpak sync configuration file
+`flatpak-sync generate`
+
+
+Okay, you have to setup a new computer. After installing your distro, take your configuration file and just run flatpak-sync
+
+1. Add your flatpak sync configuration file to your desktop
+2. Run `flatpak-sync run`
+3. Done!
+
+```
+## Commands
 
 Add an Application to your configuration file
 ```
@@ -53,6 +68,14 @@ Download & Sync
 ```
 flatpak-sync downloadrun
 ```
+
+## Recommendations
+
+Chezmoi to manage your flatpak sync configuration.
+
+
+Flatseal is a GUI application that makes adding permissions to your flakpak applications easy.
+https://flathub.org/apps/details/com.github.tchx84.Flatseal
 
 ## Questions
 
