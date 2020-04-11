@@ -3,7 +3,7 @@ Automate Flatpak Application Installation and Permissions
 
 ## Requirements 
 
-* Flatpak 1.4 or greater ```gnome-shell --version```
+* Flatpak 1.4 or greater ```flatpak --version```
 * Python 3.5 or greater ```python --version```
 * PIP installed ```pip --version```
 
