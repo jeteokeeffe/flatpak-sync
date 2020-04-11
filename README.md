@@ -31,7 +31,6 @@ Okay, you have to setup a new computer. After installing your distro, take your 
 2. Run `flatpak-sync run`
 3. Done!
 
-```
 ## Commands
 
 Add an Application to your configuration file
@@ -46,36 +45,33 @@ flatpak-sync remove <repo> <app-id>
 flatpak-sync remove flathub com.spotify.Client
 ```
 
-Create a list of existing applications and permissions
+Create a list of existing flatpak applications and permissions
 ```
 flatpak-sync generate
 ```
 
-Install and Configure Permissions (Sync)
+Install flatpak applications and configure permissions (Sync)
 ```
 flatpak-sync run
 ```
 
 
-Upload & Download
-```
-flatpak-sync upload
-flatpak-sync download
-```
-
-
-Download & Sync 
-```
-flatpak-sync downloadrun
-```
-
 ## Recommendations
 
-Chezmoi to manage your flatpak sync configuration.
-
+Chezmoi is a command line tool to easily manage your dotfiles with git. 
+https://github.com/twpayne/chezmoi
+https://fedoramagazine.org/take-back-your-dotfiles-with-chezmoi/
 
 Flatseal is a GUI application that makes adding permissions to your flakpak applications easy.
 https://flathub.org/apps/details/com.github.tchx84.Flatseal
+https://www.omgubuntu.co.uk/2020/02/flatseal-manage-flatpak-permissions
+
+## Bug Reports
+
+Creae an issue and post these things
+* Distro (`hostnamectl`)
+* Flatpak version (`flatpak --version`)
+* Flatpak-sync configuration file (`~/.config/flatpak-sync/flatpak.json`) file
 
 ## Questions
 
