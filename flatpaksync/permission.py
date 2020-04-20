@@ -6,7 +6,8 @@ class permission:
     TYPE_SYSTEM = "system"
 
     def __init__(self, line: str = ""):
-        self.setPermission(line.split("=")[0], line.split("=")[1])
+        if not line == "":
+            self.setPermission(line.split("=")[0], line.split("=")[1])
         self.type = "user"
 
     def setPermission(self, permission: str, val: str) -> bool:

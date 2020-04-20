@@ -17,11 +17,10 @@ class parseapp:
         version = 1
         repo = 2
 
-        #print(output)
         for line in output.splitlines():
             cols=line.split("\t")
 
-                # Create App
+                # Create App & Settings
             myapp = app()
             myapp.setAppId(cols[appid])
             myapp.setVersion(cols[version])
@@ -37,6 +36,7 @@ class parseapp:
                 #for permobj in permlist.getAll():
             myapp.setPermissions(permlist)
 
+                # Add App
             self.appList.add(myapp)
 
         return True

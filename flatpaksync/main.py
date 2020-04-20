@@ -3,6 +3,7 @@ import logging
 import os
 from pathlib import Path
 
+
 from .readconfig import readconfig
 from .writeconfig import writeconfig
 from .appaction import appaction
@@ -13,6 +14,7 @@ from .parserepo import parserepo
 from .settings import settings
 from .flatpakcmd import flatpakcmd
 from .permissionaction import permissionaction
+from .commands.add import add
 
 
 @click.group()
@@ -160,19 +162,22 @@ def add(repo, appid, conf, verbose):
         repolist=config.getRepoList()
         applist=config.getAppList()
 
-        addApp=app(appid, repo)
-        applist.add(addApp)
+        if appid.endswith("BaseApp"):
+            logging.warn("unnecessary to add base apps")
+        else
+            addApp=app(appid, repo)
+            applist.add(addApp)
 
-            # Write configuration
-        wconfig = writeconfig(conf)
-        wconfig.setSettings(settings)
-        wconfig.setRepoList(repolist)
-        wconfig.setAppList(applist)
+                # Write configuration
+            wconfig = writeconfig(conf)
+            wconfig.setSettings(settings)
+            wconfig.setRepoList(repolist)
+            wconfig.setAppList(applist)
 
-        if wconfig.write():
-            logging.info('successfully wrote configuration')
-        else:
-            logging.error('failed to write configuration')
+            if wconfig.write():
+                logging.info('successfully wrote configuration')
+            else:
+                logging.error('failed to write configuration')
 
     else:
         logging.error('failed to read configuration')

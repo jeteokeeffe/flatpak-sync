@@ -15,9 +15,11 @@ class parsepermission:
         config.read_file(buf)
         for section in config.sections():
             for permname in config[section]:
+                print(permname)
                 for val in config[section][permname].split(';'):
                     if len(val) > 0:
-                        perm = permission(permname, val)
+                        perm = permission()
+                        perm.setPermission(permname, val)
                         self.permlist.add(perm)
 
 
