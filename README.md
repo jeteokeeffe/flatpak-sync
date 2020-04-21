@@ -75,9 +75,15 @@ Creae an issue and post these things
 
 ## Questions
 
-Is there a list of common flatpak repositories?
+###### Is there a list of common flatpak repositories?
+
 Yes, they can be found [here](https://github.com/jeteokeeffe/flatpak-sync/blob/master/data/common-repos.json)
 
-Where can I see an example configuration file?
+###### Where is the flatpak sync configuration file stored?
+
+`$HOME/.config/flatpak-sync/flatpak.json`
+
+###### Where can I see an example configuration file?
+
 Here is an [example configuration file](https://github.com/jeteokeeffe/flatpak-sync/blob/master/data/example-flatpak-configuration.yaml)
 
