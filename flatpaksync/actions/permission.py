@@ -1,7 +1,7 @@
 import subprocess
 
-from flatpaksync.app import app
-from flatpaksync.permission import permission
+from flatpaksync.structs.app import app
+from flatpaksync.structs.permission import permission
 
 class permission:
     """

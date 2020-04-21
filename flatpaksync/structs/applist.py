@@ -1,4 +1,5 @@
-from .app import app
+from flatpaksync.structs.app import app
+
 
 class applist:
 
@@ -32,6 +33,14 @@ class applist:
                 self.applist.pop(i)
 
         return True
+
+
+    def exists(self, myApp: app) -> bool:
+        for i, stored in enumerate(self.applist):
+            if stored.getAppId() == myApp.getAppId() and stored.getRepoName() == myApp.getRepoName():
+                return True
+
+        return False
 
     def getCount(self) -> int:
         return self.count

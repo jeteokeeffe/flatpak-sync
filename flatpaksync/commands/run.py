@@ -3,11 +3,11 @@ import os
 
 from flatpaksync.flatpakcmd import flatpakcmd
 from flatpaksync.commands.command import command
-from flatpaksync.configs.readconfig import readconfig
+from flatpaksync.configs.read import read as readconfig
 
-from flatpaksync.app import app
-from flatpaksync.appaction import appaction
-from flatpaksync.permissionaction import permissionaction
+from flatpaksync.structs.app import app
+from flatpaksync.actions.app import app as appaction
+from flatpaksync.actions.permission import permission as permissionaction
 
 class run(command):
 
@@ -16,14 +16,12 @@ class run(command):
 
     def execute(self):
 
-        conf = os.environ['HOME'] + '/' + self.conf
-
         fp=flatpakcmd()
         logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
         logging.debug(fp.getVersion())
-        logging.debug("Configuration file: {}".format(conf))
+        logging.debug("Configuration file: {}".format(self.conf))
 
-        config=readconfig(conf)
+        config = readconfig(self.conf)
         if config.read():
             settings=config.getSettings()
             repolist=config.getRepoList()

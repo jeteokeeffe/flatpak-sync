@@ -1,4 +1,4 @@
-from .permission import permission
+from flatpaksync.structs.permission import permission
 
 class permissionlist():
 

@@ -3,7 +3,7 @@ import os
 
 from flatpaksync.flatpakcmd import flatpakcmd
 from flatpaksync.commands.command import command
-from flatpaksync.configs.writeconfig import writeconfig
+from flatpaksync.configs.write import write as writeconfig
 
 from flatpaksync.structs.app import app
 from flatpaksync.structs.settings import settings

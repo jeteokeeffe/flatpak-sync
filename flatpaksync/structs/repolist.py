@@ -1,4 +1,4 @@
-from .repo import repo
+from flatpaksync.structs.repo import repo
 
 
 class repolist:

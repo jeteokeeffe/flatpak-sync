@@ -2,16 +2,16 @@ import json
 import os.path
 import logging
 
-from flatpaksync.applist import applist
-from flatpaksync.app import app
-from flatpaksync.repolist import repolist
-from flatpaksync.repo import repo
-from flatpaksync.permissionlist import permissionlist
-from flatpaksync.permission import permission
-from flatpaksync.settings import settings
+from flatpaksync.structs.applist import applist
+from flatpaksync.structs.app import app
+from flatpaksync.structs.repolist import repolist
+from flatpaksync.structs.repo import repo
+from flatpaksync.structs.permissionlist import permissionlist
+from flatpaksync.structs.permission import permission
+from flatpaksync.structs.settings import settings
 
 
-class readconfig:
+class read:
     """ 
     Read flatpak configuration file to load settings
     """

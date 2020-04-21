@@ -1,6 +1,6 @@
 import subprocess
 
-from flatpaksync.repo import repo
+from flatpaksync.structs.repo import repo
 from flatpaksync.parserepo import parserepo
 
 class repo:
