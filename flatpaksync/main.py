@@ -65,6 +65,7 @@ def add(repo, appid, conf, verbose):
     cmd = addcmd()
     cmd.setConfig(conf)
     cmd.setDebug(verbose)
+    #cmd.setDryRun(dryrun)
     cmd.execute(repo, appid)
 
 
@@ -88,6 +89,7 @@ def remove(repo, appid, conf, verbose):
     cmd = removecmd()
     cmd.setConfig(conf)
     cmd.setDebug(verbose)
+    #cmd.setDryRun(dryrun)
     cmd.execute(repo, appid)
 
 
