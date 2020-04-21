@@ -19,8 +19,8 @@ pip install --user flatpak-sync
 
 ## Basic Usage
 
-After you've installed your flatpak applications and setup
-1. Install your flatpak applications
+After you've installed flatpak on your distro
+1. Install your flatpak applications, set some permissions
 2. Generate a flatpak sync configuration file
 `flatpak-sync generate`
 
