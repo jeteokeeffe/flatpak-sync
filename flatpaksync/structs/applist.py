@@ -18,6 +18,9 @@ class applist:
 
 
     def add(self, app: app) -> bool:
+        if app.getAppId().endswith(".BaseApp"):
+            return False
+
         self.applist.append(app)
         self.count += 1
         return True

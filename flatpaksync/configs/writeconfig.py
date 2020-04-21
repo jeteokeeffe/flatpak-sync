@@ -2,11 +2,11 @@ import json
 import os
 import logging
 
-from .applist import applist
-from .app import app
-from .repolist import repolist
-from .repo import repo
-from .settings import settings
+from flatpaksync.applist import applist
+from flatpaksync.app import app
+from flatpaksync.repolist import repolist
+from flatpaksync.repo import repo
+from flatpaksync.settings import settings
 
 class writeconfig:
     """

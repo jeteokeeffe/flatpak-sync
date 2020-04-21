@@ -1,9 +1,9 @@
 import subprocess
 
-from .repo import repo
-from .parserepo import parserepo
+from flatpaksync.repo import repo
+from flatpaksync.parserepo import parserepo
 
-class repoaction:
+class repo:
 
     def __init__(self):
         self.type = "user"

@@ -1,6 +1,6 @@
 
 
-class maskaction:
+class mask:
     """
     flatpak mask command
     """

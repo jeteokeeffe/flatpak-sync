@@ -3,9 +3,6 @@
     "fedora": {
       "url": "oci+https://registry.fedoraproject.org"
     },
-    "firefox": {
-      "url": "https://firefox-flatpak.mojefedora.cz/org.mozilla.FirefoxRepo.flatpakrepo"
-    },
     "flathub": {
       "url": "https://flathub.org/repo/flathub.flatpakrepo"
     },

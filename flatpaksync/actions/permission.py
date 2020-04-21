@@ -1,9 +1,9 @@
 import subprocess
 
-from .app import app
-from .permission import permission
+from flatpaksync.app import app
+from flatpaksync.permission import permission
 
-class permissionaction:
+class permission:
     """
     Flatpak permissions
     """

@@ -2,13 +2,13 @@ import json
 import os.path
 import logging
 
-from .applist import applist
-from .app import app
-from .repolist import repolist
-from .repo import repo
-from .permissionlist import permissionlist
-from .permission import permission
-from .settings import settings
+from flatpaksync.applist import applist
+from flatpaksync.app import app
+from flatpaksync.repolist import repolist
+from flatpaksync.repo import repo
+from flatpaksync.permissionlist import permissionlist
+from flatpaksync.permission import permission
+from flatpaksync.settings import settings
 
 
 class readconfig:

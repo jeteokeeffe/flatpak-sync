@@ -1,20 +1,9 @@
 import click
-import logging
-import os
-from pathlib import Path
 
-
-from .readconfig import readconfig
-from .writeconfig import writeconfig
-from .appaction import appaction
-from .app import app
-from .repoaction import repoaction
-from .parseapp import parseapp
-from .parserepo import parserepo
-from .settings import settings
-from .flatpakcmd import flatpakcmd
-from .permissionaction import permissionaction
-from .commands.add import add
+from flatpaksync.commands.add import add as addcmd
+from flatpaksync.commands.remove import remove as removecmd
+from flatpaksync.commands.run import run as runcmd
+from flatpaksync.commands.generate import generate as generatecmd
 
 
 @click.group()
@@ -30,105 +19,22 @@ def generate(conf, verbose):
     """ 
     Generate a configuration file from existing,installed flatpak applications 
     """
-    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
-
-    if conf == ".config/flatpak-sync/flatpak.json":
-        confFile = os.environ['HOME'] + '/' + conf
-        confPath = os.path.dirname(os.path.realpath(confFile)) 
-        Path(confPath).mkdir(parents=True, exist_ok=True)
-
-    conf = os.environ['HOME'] + '/' + conf
-    fp=flatpakcmd()
-    if fp.isInstalled() == False:
-        sys.exit("Unable to find flatpak! Are you sure flatpak is installed?")
-
-    logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
-    logging.debug(fp.getVersion())
-    logging.debug("Configuration file: {}".format(conf))
-
-    
-    raction=repoaction() 
-    output = raction.list()
-    rparse=parserepo()
-    rparse.parse(output)
-
-    action=appaction() 
-    output=action.list()
-    parse=parseapp()
-
-    if parse.parse(output):
-
-        fpsettings = settings()
-        applist = parse.getAppList()
-        repolist = rparse.getRepoList()
-
-            # Write configuration
-        wconfig = writeconfig(conf)
-        wconfig.setSettings(fpsettings)
-        wconfig.setRepoList(repolist)
-        wconfig.setAppList(applist)
-
-        if wconfig.write():
-            logging.info('Successfully wrote configuration')
-        else:
-            logging.error('Failed to write configuration')
-
-    else:
-        logging.echo('Failed to parse apps')
+    cmd = generatecmd()
+    cmd.execute()
 
 
     # Run (install/remove) applications from your configuration
 @cli.command()
 @click.option('-v', '--verbose', is_flag=True)
 @click.option('-c', '--conf', default=".config/flatpak-sync/flatpak.json", help='configuration file')
-@click.option('--dryrun', is_flag=True, help='configuration file')
+@click.option('-d', '--dryrun', is_flag=True, help='configuration file')
 def run(conf, dryrun, verbose):
     """ 
     Run (add/remove) flatpak applications 
     """
-    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+    cmd = runcmd()
+    cmd.execute()
 
-    conf = os.environ['HOME'] + '/' + conf
-
-    fp=flatpakcmd()
-    logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
-    logging.debug(fp.getVersion())
-    logging.debug("Configuration file: {}".format(conf))
-
-    config=readconfig(conf)
-    if config.read():
-        settings=config.getSettings()
-        repolist=config.getRepoList()
-        applist=config.getAppList()
-
-            # Install Applications
-        for app in applist.getAll():
-            action=appaction()
-            permaction=permissionaction()
-
-            if action.isInstalled(app):
-                logging.debug('{} already installed'.format(app.getAppId()))
-            else:
-                if dryrun:
-                    logging.info('{} to be installed'.format(app.getAppId()))
-                elif action.install(app):
-                    logging.info('{} installation successful'.format(app.getAppId()))
-                else:
-                    logging.error('{} installation failed'.format(app.getAppId()))
-
-            perms = app.getPermissions()
-            if perms.getCount() > 0:
-                logging.debug('{} has overriding permissions'.format(app.getAppId()))
-                for permission in perms.getAll():
-                    if permaction.override(app, permission):
-                        logging.debug(" permission set")
-                    else:
-                        logging.error("{} failed to set permission '{}'".format(app.getAppId(), permission.getPermission()))
-
-            #else
-            #    logging.debug('{} has no overriding permissions'.format(app.getAppId()))
-    else:
-        logging.info('failed to read configuration')
 
 
 
@@ -147,49 +53,15 @@ def add(repo, appid, conf, verbose):
     
     APPID is name of flatpak application (eg. com.gnome.meld)
     """
-    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
-
-    conf = os.environ['HOME'] + '/' + conf
-
-    fp=flatpakcmd()
-    logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
-    logging.debug(fp.getVersion())
-    logging.debug("Configuration file: {}".format(conf))
-
-    config=readconfig(conf)
-    if config.read():
-        settings=config.getSettings()
-        repolist=config.getRepoList()
-        applist=config.getAppList()
-
-        if appid.endswith("BaseApp"):
-            logging.warn("unnecessary to add base apps")
-        else
-            addApp=app(appid, repo)
-            applist.add(addApp)
-
-                # Write configuration
-            wconfig = writeconfig(conf)
-            wconfig.setSettings(settings)
-            wconfig.setRepoList(repolist)
-            wconfig.setAppList(applist)
-
-            if wconfig.write():
-                logging.info('successfully wrote configuration')
-            else:
-                logging.error('failed to write configuration')
-
-    else:
-        logging.error('failed to read configuration')
-
-    
+    cmd = addcmd()
+    cmd.execute(repo, appid)
 
 
 
 
     # Remove an Application to be sync'd
 @cli.command()
-@click.option('-c', '--conf', default=".config/flatpak-sync/app.yaml", help='configuration file')
+@click.option('-c', '--conf', default=".config/flatpak-sync/flatpak.json", help='configuration file')
 @click.option('-v', '--verbose', is_flag=True)
 @click.argument('repo')
 @click.argument('appid')
@@ -201,40 +73,8 @@ def remove(repo, appid, conf, verbose):
     
     APPID is name of flatpak application (eg. com.gnome.meld)
     """
-    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
-
-    conf = os.environ['HOME'] + '/' + conf
-
-    fp=flatpakcmd()
-    logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
-    logging.debug(fp.getVersion())
-    logging.debug("Configuration file: {}".format(conf))
-
-    
-    config=readconfig(conf)
-    if config.read():
-
-        settings=config.getSettings()
-        repolist=config.getRepoList()
-        applist=config.getAppList()
-
-            # Remove an App from the list
-        removeApp=app(appid, repo)
-        applist.remove(removeApp)
-
-            # Write configuration
-        wconfig = writeconfig(conf)
-        wconfig.setSettings(settings)
-        wconfig.setRepoList(repolist)
-        wconfig.setAppList(applist)
-
-        if wconfig.write():
-            logging.info('Successfully wrote configuration')
-        else:
-            logging.error('Failed to write configuration')
-
-    else:
-        logging.error('Failed to read configuration')
+    cmd = removecmd()
+    cmd.execute(repo,appid)
 
 
 #@cli.command()

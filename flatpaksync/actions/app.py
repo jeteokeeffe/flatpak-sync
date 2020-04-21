@@ -1,10 +1,10 @@
 import subprocess
 
-from .app import app
-from .parseapp import parseapp
+from flatpaksync.app import app
+from flatpaksync.parseapp import parseapp
 
 
-class appaction:
+class app:
     """
     flatpak application commands like install an app, remove an app
     """
