@@ -1,8 +1,8 @@
 import configparser
 import io
 
-from .permission import permission
-from .permissionlist import permissionlist
+from flatpaksync.structs.permission import permission
+from flatpaksync.structs.permissionlist import permissionlist
 
 class parsepermission:
 
@@ -15,7 +15,7 @@ class parsepermission:
         config.read_file(buf)
         for section in config.sections():
             for permname in config[section]:
-                print(permname)
+                #print(permname)
                 for val in config[section][permname].split(';'):
                     if len(val) > 0:
                         perm = permission()
@@ -62,7 +62,3 @@ class parsepermission:
 
         return options.get(permname, 'invalid');
 
-
-#name="filesystemss"
-#p=parsepermission()
-#print(p.safetype(name))

@@ -40,9 +40,9 @@ class generate(command):
         rparse=parserepo()
         rparse.parse(output)
 
-        action=appaction() 
-        output=action.list()
-        parse=parseapp()
+        action = appaction() 
+        output = action.list()
+        parse = parseapp()
 
         if parse.parse(output):
 

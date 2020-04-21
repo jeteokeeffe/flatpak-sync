@@ -35,7 +35,7 @@ class run(command):
                 if action.isInstalled(app):
                     logging.debug('{} already installed'.format(app.getAppId()))
                 else:
-                    if dryrun:
+                    if self.dryrun:
                         logging.info('{} to be installed'.format(app.getAppId()))
                     elif action.install(app):
                         logging.info('{} installation successful'.format(app.getAppId()))
