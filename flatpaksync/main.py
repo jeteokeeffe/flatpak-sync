@@ -14,12 +14,16 @@ def cli():
 @cli.command()
 @click.option('-v', '--verbose', is_flag=True, help='verbose output')
 @click.option('-c', '--conf', default=".config/flatpak-sync/flatpak.json", help='configuration file')
-#@click.option('--dryrun', is_flag=True, help='configuration file')
-def generate(conf, verbose):
+@click.option('-d', '--dryrun', is_flag=True, help='no action performed')
+def generate(conf, dryrun, verbose):
     """ 
     Generate a configuration file from existing,installed flatpak applications 
     """
+
     cmd = generatecmd()
+    cmd.setConfig(conf)
+    cmd.setDebug(verbose)
+    cmd.setDryRun(dryrun)
     cmd.execute()
 
 
@@ -27,12 +31,16 @@ def generate(conf, verbose):
 @cli.command()
 @click.option('-v', '--verbose', is_flag=True)
 @click.option('-c', '--conf', default=".config/flatpak-sync/flatpak.json", help='configuration file')
-@click.option('-d', '--dryrun', is_flag=True, help='configuration file')
+@click.option('-d', '--dryrun', is_flag=True, help='no action performed')
 def run(conf, dryrun, verbose):
     """ 
     Run (add/remove) flatpak applications 
     """
+
     cmd = runcmd()
+    cmd.setConfig(conf)
+    cmd.setDebug(verbose)
+    cmd.setDryRun(dryrun)
     cmd.execute()
 
 
@@ -53,7 +61,10 @@ def add(repo, appid, conf, verbose):
     
     APPID is name of flatpak application (eg. com.gnome.meld)
     """
+
     cmd = addcmd()
+    cmd.setConfig(conf)
+    cmd.setDebug(verbose)
     cmd.execute(repo, appid)
 
 
@@ -73,8 +84,11 @@ def remove(repo, appid, conf, verbose):
     
     APPID is name of flatpak application (eg. com.gnome.meld)
     """
+
     cmd = removecmd()
-    cmd.execute(repo,appid)
+    cmd.setConfig(conf)
+    cmd.setDebug(verbose)
+    cmd.execute(repo, appid)
 
 
 #@cli.command()

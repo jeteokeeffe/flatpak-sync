@@ -5,16 +5,25 @@ import os
 class command():
 
     def __init__(self):
+        self.dryrun = False
+
         self.conf = os.environ['HOME'] + '/' + ".config/flatpak-sync/flatpak.json"
-        logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
 
     def setConfig(self, conf):
-        self.conf = conf
+        if not conf.endswith(".config/flatpak-sync/flatpak.json"):
+            self.conf = conf
 
 
-    def setLogLevel(self, level):
-        self.logLevel = level
+    def setDebug(self, isVerbose):
+        if isVerbose:
+            logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+        else:
+            logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
+
+
+    def setDryRun(self, isDryrun):
+        self.dryrun = isDryrun
 
 
 
