@@ -77,7 +77,11 @@ Creae an issue and post these things
 
 ###### Is there a list of common flatpak repositories?
 
-Yes, they can be found [here](https://github.com/jeteokeeffe/flatpak-sync/blob/master/data/common-repos.json)
+Yes, they can be found [here](https://github.com/jeteokeeffe/flatpak-sync/blob/master/data/common-repos.json).
+
+###### Can I add a repository?
+
+Yes, create a Pull Request.
 
 ###### Where is the flatpak sync configuration file stored?
 
@@ -85,5 +89,5 @@ Yes, they can be found [here](https://github.com/jeteokeeffe/flatpak-sync/blob/m
 
 ###### Where can I see an example configuration file?
 
-Here is an [example configuration file](https://github.com/jeteokeeffe/flatpak-sync/blob/master/data/example-flatpak-configuration.yaml)
+Here is an [example configuration file](https://github.com/jeteokeeffe/flatpak-sync/blob/master/data/flatpak-example.json)
 

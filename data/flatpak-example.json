@@ -1,0 +1,69 @@
+{
+    "sync": {
+        "flatpak": {
+            "settings": {
+                "remove_unmanaged_repos": false,
+                "remove_unmanaged_apps": false
+            },
+            "repos": [
+                {
+                    "name": "flathub",
+                    "repo": "https://flathub.org/repo/flathub.flatpakrepo"
+                }
+            ],
+            "apps": [
+                {
+                    "name": "com.github.johnfactotum.Foliate",
+                    "repo": "flathub",
+                    "version": "latest",
+                    "pin": false
+                },
+                {
+                    "name": "com.github.tchx84.Flatseal",
+                    "repo": "flathub",
+                    "version": "latest",
+                    "pin": false
+                },
+                {
+                    "name": "com.slack.Slack",
+                    "repo": "flathub",
+                    "version": "latest",
+                    "pin": false,
+                    "permissions": [
+                        "filesystem=host"
+                    ]
+                },
+                {
+                    "name": "de.haeckerfelix.Shortwave",
+                    "repo": "flathub",
+                    "version": "latest",
+                    "pin": false
+                },
+                {
+                    "name": "org.gnome.Firmware",
+                    "repo": "flathub",
+                    "version": "latest",
+                    "pin": false
+                },
+                {
+                    "name": "org.gnome.Lollypop",
+                    "repo": "flathub",
+                    "version": "latest",
+                    "pin": false
+                },
+                {
+                    "name": "org.gnome.Totem",
+                    "repo": "flathub",
+                    "version": "latest",
+                    "pin": false
+                },
+                {
+                    "name": "org.gnome.meld",
+                    "repo": "flathub",
+                    "version": "latest",
+                    "pin": false
+                }
+            ]
+        }
+    }
+}
