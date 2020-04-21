@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="flatpak-sync", 
-    version="1.0.0",
+    version="1.0.1",
     author="JJO",
     author_email="jeteokeeffe@yahoo.com",
     description="Automate Installation and Permissions of Flatpak Applications",
@@ -16,7 +16,7 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: Linux",
+        "Operating System :: POSIX :: Linux",
     ],
     entry_points={
         "console_scripts": [

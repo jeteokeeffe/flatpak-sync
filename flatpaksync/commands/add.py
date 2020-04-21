@@ -1,7 +1,6 @@
 import logging
 import os
 
-from flatpaksync.flatpakcmd import flatpakcmd
 from flatpaksync.commands.command import command
 from flatpaksync.configs.write import write as writeconfig
 from flatpaksync.configs.read import read as readconfig
@@ -14,11 +13,6 @@ class add(command):
         super().__init__()
 
     def execute(self, repo, appid):
-
-        fp=flatpakcmd()
-        logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
-        logging.debug(fp.getVersion())
-        logging.debug("Configuration file: {}".format(self.conf))
 
         config = readconfig(self.conf)
         if config.read():
@@ -40,10 +34,10 @@ class add(command):
                 wconfig.setAppList(applist)
 
                 if wconfig.write():
-                    logging.info('successfully wrote configuration')
+                    logging.info('Successfully wrote configuration')
                 else:
-                    logging.error('failed to write configuration')
+                    logging.error('Failed to write configuration')
 
         else:
-            logging.error('failed to read configuration')
+            logging.error('Failed to read configuration')
 

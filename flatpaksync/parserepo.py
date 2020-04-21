@@ -1,5 +1,5 @@
-from .repolist import repolist
-from .repo import repo
+from flatpaksync.structs.repolist import repolist
+from flatpaksync.structs.repo import repo
 
 
 class parserepo:

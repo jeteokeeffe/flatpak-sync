@@ -1,7 +1,7 @@
-from .applist import applist
-from .app import app 
-from .permissionaction import permissionaction
-from .parsepermission import parsepermission
+from flatpaksync.structs.applist import applist
+from flatpaksync.structs.app import app 
+from flatpaksync.actions.permission import permission as permissionaction
+from flatpaksync.parsepermission import parsepermission
 
 class parseapp:
 

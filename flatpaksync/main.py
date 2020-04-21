@@ -21,6 +21,7 @@ def generate(conf, dryrun, verbose):
     """
 
     cmd = generatecmd()
+    cmd.checkFlatpak()
     cmd.setConfig(conf)
     cmd.setDebug(verbose)
     cmd.setDryRun(dryrun)
@@ -38,6 +39,7 @@ def run(conf, dryrun, verbose):
     """
 
     cmd = runcmd()
+    cmd.checkFlatpak()
     cmd.setConfig(conf)
     cmd.setDebug(verbose)
     cmd.setDryRun(dryrun)
@@ -63,6 +65,7 @@ def add(repo, appid, conf, verbose):
     """
 
     cmd = addcmd()
+    cmd.checkFlatpak()
     cmd.setConfig(conf)
     cmd.setDebug(verbose)
     #cmd.setDryRun(dryrun)
@@ -87,6 +90,7 @@ def remove(repo, appid, conf, verbose):
     """
 
     cmd = removecmd()
+    cmd.checkFlatpak()
     cmd.setConfig(conf)
     cmd.setDebug(verbose)
     #cmd.setDryRun(dryrun)

@@ -1,7 +1,7 @@
 import logging
 import os
+from pathlib import Path
 
-from flatpaksync.flatpakcmd import flatpakcmd
 from flatpaksync.commands.command import command
 from flatpaksync.configs.write import write as writeconfig
 
@@ -18,21 +18,12 @@ class generate(command):
     def __init__(self):
         super().__init__()
 
+
     def execute(self):
 
-        conf = os.environ['HOME'] + '/' + self.conf
-        if conf == ".config/flatpak-sync/flatpak.json":
-            confFile = os.environ['HOME'] + '/' + conf
-            confPath = os.path.dirname(os.path.realpath(confFile)) 
+        if self.conf.endswith(".config/flatpak-sync/flatpak.json"):
+            confPath = os.path.dirname(os.path.realpath(self.conf)) 
             Path(confPath).mkdir(parents=True, exist_ok=True)
-
-        fp=flatpakcmd()
-        if fp.isInstalled() == False:
-            sys.exit("Unable to find flatpak! Are you sure flatpak is installed?")
-
-        logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
-        logging.debug(fp.getVersion())
-        logging.debug("Configuration file: {}".format(conf))
 
         
         raction=repoaction() 
@@ -51,7 +42,7 @@ class generate(command):
             repolist = rparse.getRepoList()
 
                 # Write configuration
-            wconfig = writeconfig(conf)
+            wconfig = writeconfig(self.conf)
             wconfig.setSettings(fpsettings)
             wconfig.setRepoList(repolist)
             wconfig.setAppList(applist)

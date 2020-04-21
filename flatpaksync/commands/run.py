@@ -1,7 +1,6 @@
 import logging
 import os
 
-from flatpaksync.flatpakcmd import flatpakcmd
 from flatpaksync.commands.command import command
 from flatpaksync.configs.read import read as readconfig
 
@@ -14,12 +13,8 @@ class run(command):
     def __init__(self):
         super().__init__()
 
-    def execute(self):
 
-        fp=flatpakcmd()
-        logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
-        logging.debug(fp.getVersion())
-        logging.debug("Configuration file: {}".format(self.conf))
+    def execute(self):
 
         config = readconfig(self.conf)
         if config.read():
