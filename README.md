@@ -1,5 +1,5 @@
 # flatpak-sync
-Automate Flatpak Application Installation and Permissions
+Automate the installation Flatpak Repositories, Applications and Permissions 
 
 ## Requirements 
 
