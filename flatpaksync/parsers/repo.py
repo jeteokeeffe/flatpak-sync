@@ -1,8 +1,8 @@
 from flatpaksync.structs.repolist import repolist
-from flatpaksync.structs.repo import repo
+from flatpaksync.structs.repo import repo as repodata
 
 
-class parserepo:
+class repo:
 
     """
     Parse flatpak output
@@ -14,11 +14,12 @@ class parserepo:
     def parse(self, output: str):
         name = 0
         location = 1
+
         for line in output.splitlines():
             cols = line.split("\t")
 
-            myrepo = repo(cols[name])
-            myrepo.setLocation(repo.nameToLocation(cols[name]))
+            myrepo = repodata(cols[name])
+            myrepo.setLocation(repodata.nameToLocation(cols[name]))
             self.repoList.add(myrepo)
 
         return True

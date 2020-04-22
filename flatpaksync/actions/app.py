@@ -1,7 +1,7 @@
 import subprocess
 
 from flatpaksync.structs.app import app
-from flatpaksync.parseapp import parseapp
+from flatpaksync.parsers.app import app as parseapp
 
 
 class app:

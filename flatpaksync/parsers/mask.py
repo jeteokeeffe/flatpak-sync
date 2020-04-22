@@ -1,6 +1,6 @@
 
 
-class parsemask:
+class mask:
 
     """
     parse output of flatpak mask command

@@ -8,8 +8,8 @@ from flatpaksync.configs.write import write as writeconfig
 from flatpaksync.structs.app import app
 from flatpaksync.structs.settings import settings
 from flatpaksync.actions.app import app as appaction
-from flatpaksync.parserepo import parserepo
-from flatpaksync.parseapp import parseapp
+from flatpaksync.parsers.repo import repo as parserepo
+from flatpaksync.parsers.app import app as parseapp
 from flatpaksync.actions.repo import repo as repoaction
 
 
@@ -26,11 +26,13 @@ class generate(command):
             Path(confPath).mkdir(parents=True, exist_ok=True)
 
         
-        raction=repoaction() 
+            # Get Installed Repos
+        raction = repoaction() 
         output = raction.list()
         rparse=parserepo()
         rparse.parse(output)
 
+            # Get Installed Apps
         action = appaction() 
         output = action.list()
         parse = parseapp()

@@ -1,10 +1,10 @@
 import configparser
 import io
 
-from flatpaksync.structs.permission import permission
+from flatpaksync.structs.permission import permission as permissiondata
 from flatpaksync.structs.permissionlist import permissionlist
 
-class parsepermission:
+class permission:
 
     def __init__(self):
         self.permlist = permissionlist()
@@ -18,7 +18,7 @@ class parsepermission:
                 #print(permname)
                 for val in config[section][permname].split(';'):
                     if len(val) > 0:
-                        perm = permission()
+                        perm = permissiondata()
                         perm.setPermission(permname, val)
                         self.permlist.add(perm)
 

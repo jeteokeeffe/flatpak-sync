@@ -8,6 +8,8 @@ class command():
     def __init__(self):
         self.dryrun = False
 
+        logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
+
         self.conf = os.environ['HOME'] + '/' + ".config/flatpak-sync/flatpak.json"
 
 
@@ -18,10 +20,10 @@ class command():
 
     def setDebug(self, isVerbose):
         if isVerbose:
-            logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+            #logging.setLevel(logging.DEBUG)
             logging.debug("Verbose mode enabled")
-        else:
-            logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
+        #else:
+        #    logging.setLevel(logging.INFO)
 
 
     def setDryRun(self, isDryrun):

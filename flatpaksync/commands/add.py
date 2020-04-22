@@ -1,5 +1,6 @@
 import logging
 import os
+from pathlib import Path
 
 from flatpaksync.commands.command import command
 from flatpaksync.configs.write import write as writeconfig
@@ -14,6 +15,10 @@ class add(command):
 
     def execute(self, repo, appid):
 
+        if self.conf.endswith(".config/flatpak-sync/flatpak.json"):
+            confPath = os.path.dirname(os.path.realpath(self.conf)) 
+            Path(confPath).mkdir(parents=True, exist_ok=True)
+
         config = readconfig(self.conf)
         if config.read():
             settings=config.getSettings()
@@ -21,7 +26,7 @@ class add(command):
             applist=config.getAppList()
 
                 # Don't add Base Apps
-            if appid.endswith("BaseApp"):
+            if appid.endswith(".BaseApp"):
                 logging.warn("Unnecessary to add base apps")
             else:
                 addApp = app(appid, repo)
