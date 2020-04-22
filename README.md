@@ -3,7 +3,7 @@ Automate Flatpak Application Installation and Permissions
 
 ## Requirements 
 
-* Flatpak 1.4 or greater ```flatpak --version```
+* Flatpak (```flatpak --version```)
 * Python 3.5 or greater ```python --version```
 * PIP installed ```pip --version```
 
@@ -17,35 +17,36 @@ following command to install.
 pip install --user flatpak-sync
 ```
 
-## Basic Usage
+## Usage
 
-After you've installed flatpak on your distro
-1. Install your flatpak applications, set some permissions
-2. Generate a flatpak sync configuration file
-`flatpak-sync generate`
+### First Step
 
+Install some flatpak applications, change some permissions. When you're happy, run the following command to generate a configuration file.
+`flatpak-sync generate -v`
+
+### Now Sync
 
 Okay, you have to setup a new computer. After installing your distro, take your configuration file and just run flatpak-sync
 
-1. Add your flatpak sync configuration file to your desktop
-2. Run `flatpak-sync run`
-3. Done!
+1. Add your flatpak sync configuration file to your desktop ( `$HOME/.config/flatpak-sync/flatpak.json` )
+2. Run `flatpak-sync run -v`
+3. Done! Flatpak Repositories are setup, applications are installed and permissions are set.
 
 ## Commands
 
-Add an Application to your configuration file
+Add an Application to your configuration file. This also copies user permissions.
 ```
 flatpak-sync add <repo> <app-id>
 flatpak-sync add flathub com.spotify.Client
 ```
 
-Remove an Application
+Remove an Application from syncing.
 ```
 flatpak-sync remove <repo> <app-id>
 flatpak-sync remove flathub com.spotify.Client
 ```
 
-Create a list of existing flatpak applications and permissions
+Create a configuration file of existing flatpak repositories, applications and permissions.
 ```
 flatpak-sync generate
 ```
@@ -74,6 +75,10 @@ Creae an issue and post these things
 * Flatpak-sync configuration file (`~/.config/flatpak-sync/flatpak.json`) file
 
 ## Questions
+
+###### I think this feature should be added. How do I get it added?
+
+Create an issue here on github.
 
 ###### Is there a list of common flatpak repositories?
 
