@@ -37,32 +37,42 @@ Okay, you have to setup a new computer. After installing your distro, take your 
 Add an Application to your configuration file. This also copies user permissions.
 ```
 flatpak-sync add <repo> <app-id>
+flatpak-sync add --help
+
+eg.
 flatpak-sync add flathub com.spotify.Client
 ```
 
 Remove an Application from syncing.
 ```
 flatpak-sync remove <repo> <app-id>
+flatpak-sync remove --help
+
+eg.
 flatpak-sync remove flathub com.spotify.Client
 ```
 
 Create a configuration file of existing flatpak repositories, applications and permissions.
 ```
 flatpak-sync generate
+flatpak-sync generate --help
 ```
 
 Install flatpak applications and configure permissions (Sync)
 ```
 flatpak-sync run
+flatpak-sync run --help
 ```
 
 
 ## Recommendations
 
+##### Chezmoi
 Chezmoi is a command line tool to easily manage your dotfiles with git. 
 https://github.com/twpayne/chezmoi
 https://fedoramagazine.org/take-back-your-dotfiles-with-chezmoi/
 
+##### Flatseal
 Flatseal is a GUI application that makes adding permissions to your flakpak applications easy.
 https://flathub.org/apps/details/com.github.tchx84.Flatseal
 https://www.omgubuntu.co.uk/2020/02/flatseal-manage-flatpak-permissions
