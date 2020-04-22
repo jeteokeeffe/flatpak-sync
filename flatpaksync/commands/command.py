@@ -3,6 +3,8 @@ import os
 
 from flatpaksync.flatpakcmd import flatpakcmd
 
+mylog = logging.getLogger("fps")
+
 class command():
 
     def __init__(self):
@@ -20,10 +22,10 @@ class command():
 
     def setDebug(self, isVerbose):
         if isVerbose:
-            #logging.setLevel(logging.DEBUG)
-            logging.debug("Verbose mode enabled")
-        #else:
-        #    logging.setLevel(logging.INFO)
+            mylog.setLevel(logging.DEBUG)
+            mylog.debug("Verbose mode enabled")
+        else:
+            mylog.setLevel(logging.INFO)
 
 
     def setDryRun(self, isDryrun):
@@ -35,8 +37,8 @@ class command():
         if fp.isInstalled() == False:
             sys.exit("Unable to find flatpak! Are you sure flatpak is installed?")
             
-        logging.debug("Flatpak installed: {}".format(fp.isInstalled()))
-        logging.debug(fp.getVersion())
-        logging.debug("Configuration file: {}".format(self.conf))
+        mylog.debug("Flatpak installed: {}".format(fp.isInstalled()))
+        mylog.debug(fp.getVersion())
+        mylog.debug("Configuration file: {}".format(self.conf))
 
 

@@ -8,6 +8,8 @@ from flatpaksync.structs.repolist import repolist
 from flatpaksync.structs.repo import repo
 from flatpaksync.structs.settings import settings
 
+mylog = logging.getLogger("fps")
+
 class write:
     """
     Create a flatpak configuration file to save settings
@@ -89,7 +91,7 @@ class write:
                 json.dump(data, f, indent=4)
                 #result = yaml.dump(data, f)
         except IOError as e:
-            logging.error("Failed to write configuration file")
+            mylog.error("Failed to write configuration file")
             return False
 
         return True

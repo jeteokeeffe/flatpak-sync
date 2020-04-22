@@ -12,6 +12,7 @@ from flatpaksync.parsers.repo import repo as parserepo
 from flatpaksync.parsers.app import app as parseapp
 from flatpaksync.actions.repo import repo as repoaction
 
+mylog = logging.getLogger("fps")
 
 class generate(command):
 
@@ -50,9 +51,9 @@ class generate(command):
             wconfig.setAppList(applist)
 
             if wconfig.write():
-                logging.info('Successfully wrote configuration')
+                mylog.info('Successfully wrote configuration')
             else:
-                logging.error('Failed to write configuration')
+                mylog.error('Failed to write configuration')
 
         else:
-            logging.echo('Failed to parse apps')
+            mylog.echo('Failed to parse apps')

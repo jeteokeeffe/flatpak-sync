@@ -10,6 +10,7 @@ from flatpaksync.structs.permissionlist import permissionlist
 from flatpaksync.structs.permission import permission
 from flatpaksync.structs.settings import settings
 
+mylog = logging.getLogger("fps")
 
 class read:
     """ 
@@ -40,7 +41,7 @@ class read:
             parsed = json.load(f)
 
             if not parsed['sync']['flatpak']:
-                logging.error("Bad format or missing flatpak applications")
+                mylog.error("Bad format or missing flatpak applications")
                 return False
 
             root = parsed['sync']['flatpak'] 
@@ -53,7 +54,7 @@ class read:
                 if 'remove_unmanaged_apps' in root['settings']:
                     self.settings.setRemoveUnmanagedRepos(root['settings']['remove_unmanaged_apps'])
             else:
-                logging.error('unable to find settings')
+                mylog.error('unable to find settings')
                 return False
 
 
@@ -62,7 +63,7 @@ class read:
                 for configrepo in root['repos']:
                     self.repoList.add( repo(configrepo['name'],configrepo['repo']) )
             else:
-                logging.error('failed to find repos')
+                mylog.error('failed to find repos')
                 return False
 
                 # Load Application settings
@@ -83,7 +84,7 @@ class read:
 
                     self.appList.add(myapp)
             else:
-                logging.error('failed to find apps')
+                mylog.error('failed to find apps')
                 return False
 
         return True

@@ -1,10 +1,12 @@
 import click
+import logging
 
 from flatpaksync.commands.add import add as addcmd
 from flatpaksync.commands.remove import remove as removecmd
 from flatpaksync.commands.run import run as runcmd
 from flatpaksync.commands.generate import generate as generatecmd
 
+mylog = logging.getLogger("fps")
 
 @click.group()
 def cli():
@@ -21,28 +23,28 @@ def generate(conf, dryrun, verbose):
     """
 
     cmd = generatecmd()
-    cmd.checkFlatpak()
     cmd.setConfig(conf)
     cmd.setDebug(verbose)
     cmd.setDryRun(dryrun)
+    cmd.checkFlatpak()
     cmd.execute()
 
 
     # Run (install/remove) applications from your configuration
-@cli.command()
 @click.option('-v', '--verbose', is_flag=True)
 @click.option('-c', '--conf', default=".config/flatpak-sync/flatpak.json", help='configuration file')
 @click.option('-d', '--dryrun', is_flag=True, help='no action performed')
+@cli.command()
 def run(conf, dryrun, verbose):
     """ 
     Run (add/remove) flatpak applications 
     """
 
     cmd = runcmd()
-    cmd.checkFlatpak()
     cmd.setConfig(conf)
     cmd.setDebug(verbose)
     cmd.setDryRun(dryrun)
+    cmd.checkFlatpak()
     cmd.execute()
 
 
@@ -65,10 +67,10 @@ def add(repo, appid, conf, verbose):
     """
 
     cmd = addcmd()
-    cmd.checkFlatpak()
     cmd.setConfig(conf)
     cmd.setDebug(verbose)
     #cmd.setDryRun(dryrun)
+    cmd.checkFlatpak()
     cmd.execute(repo, appid)
 
 
@@ -90,10 +92,10 @@ def remove(repo, appid, conf, verbose):
     """
 
     cmd = removecmd()
-    cmd.checkFlatpak()
     cmd.setConfig(conf)
     cmd.setDebug(verbose)
     #cmd.setDryRun(dryrun)
+    cmd.checkFlatpak()
     cmd.execute(repo, appid)
 
 
