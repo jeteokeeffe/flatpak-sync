@@ -44,7 +44,9 @@ class write:
         repoyaml = []
         for repo in self.repolist.getAll():
             repodata = { 'name':  repo.getName(),
-                'repo':  repo.getLocation() }
+                'repo':  repo.getLocation(),
+                'type': repo.getType()
+            }
             repoyaml.append(repodata)
 
             # Applications

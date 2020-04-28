@@ -9,12 +9,19 @@ class repo:
     def __init__(self, name = '', location = ''):
         self.name = name
         self.location = location
+        self.type = ''
 
     def setName(self, name: str) -> None:
         self.name = name
 
     def setLocation(self, location: str) -> None:
         self.location = location
+
+    def setType(self, installtype: str) -> None:
+        self.type = installtype
+
+    def getType(self) -> str:
+        return self.type
 
     def getName(self) -> str:
         return self.name

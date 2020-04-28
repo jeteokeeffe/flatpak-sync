@@ -24,6 +24,13 @@ class run(command):
             repolist=config.getRepoList()
             applist=config.getAppList()
 
+            repoact = repoaction()
+            for repo in repolist.getAll():
+                
+                if not repoact.isInstalled(repo):
+                    if not repoact.add(repo):
+                        my.error('Failed to install {} repo'.format(repo.getName()))
+
                 # Install Applications
             for app in applist.getAll():
                 action=appaction()

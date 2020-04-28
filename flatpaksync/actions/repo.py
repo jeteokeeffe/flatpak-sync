@@ -41,7 +41,7 @@ class repo:
 
 
     def list(self) -> str:
-        cmd = "flatpak remotes --columns=name,url"
+        cmd = "flatpak remotes --columns=name,url,options"
         result=subprocess.run(cmd, shell=True, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         return result.stdout
 

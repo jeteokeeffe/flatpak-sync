@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="flatpak-sync", 
-    version="1.0.2",
+    version="1.0.3",
     author="JJO",
     author_email="jeteokeeffe@yahoo.com",
-    description="Automate Installation and Permissions of Flatpak Applications",
+    description="Automate installation of Flatpak Applications, Permissions and Repositories",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/jeteokeeffe/flatpak-sync",
