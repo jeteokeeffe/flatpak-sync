@@ -6,6 +6,7 @@ from flatpaksync.configs.read import read as readconfig
 
 from flatpaksync.structs.app import app
 from flatpaksync.actions.app import app as appaction
+from flatpaksync.actions.repo import repo as repoaction
 from flatpaksync.actions.permission import permission as permissionaction
 
 mylog = logging.getLogger("fps")
