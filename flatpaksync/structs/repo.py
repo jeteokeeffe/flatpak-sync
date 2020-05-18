@@ -33,10 +33,12 @@ class repo:
     def nameToLocation(name) -> str:
         #"firefox": "",
         switcher = {
+            "eclipse-nightly": "http://eclipse.matbooth.co.uk/flatpak/nightly/eclipse.flatpakrepo",
             "fedora": "oci+https://registry.fedoraproject.org",
             "flathub": "https://flathub.org/repo/flathub.flatpakrepo",
             "flathub-beta": "https://flathub.org/beta-repo/flathub-beta.flatpakrepo",
             "gnome-nightly": "https://nightly.gnome.org/gnome-nightly.flatpakrepo",
-            "kdeapps": "https://distribute.kde.org/kdeapps.flatpakrepo"
+            "kdeapps": "https://distribute.kde.org/kdeapps.flatpakrepo",
+            "freedesktop-sdk": "https://cache.sdk.freedesktop.org/freedesktop-sdk.flatpakrepo"
         }
         return switcher.get(name, "invalid-repo")
