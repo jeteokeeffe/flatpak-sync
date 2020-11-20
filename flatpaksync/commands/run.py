@@ -29,9 +29,9 @@ class run(command):
             for repo in repolist.getAll():
                 
                 if not repoact.isInstalled(repo):
-                    my.debug('Installing {} repo'.format(repo.getName()))
+                    mylog.debug('Installing {} repo'.format(repo.getName()))
                     if not repoact.add(repo):
-                        my.error('Failed to install {} repo'.format(repo.getName()))
+                        mylog.error('Failed to install {} repo'.format(repo.getName()))
 
                 # Install Applications
             for app in applist.getAll():
